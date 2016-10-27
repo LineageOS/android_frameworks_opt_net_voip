@@ -1,0 +1,38 @@
+{
+  "comments": [
+    {
+      "key": {
+        "uuid": "ff2e2bb8_a7fa133f",
+        "filename": "src/java/com/android/server/sip/SipService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1048,
+      "author": {
+        "id": 12592
+      },
+      "writtenOn": "2016-10-27T12:31:57Z",
+      "side": 1,
+      "message": "Where does it get offset? I don\u0027t believe in this flow backoff is used with an incorrect value. Neither restartLater nor backoffDuration are used. Correct me if I\u0027m wrong though.",
+      "revId": "1b3f2e3a3fefc88f3c3769039aa5cc4bfacf2a8e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    },
+    {
+      "key": {
+        "uuid": "ff2e2bb8_c792b7f6",
+        "filename": "src/java/com/android/server/sip/SipService.java",
+        "patchSetId": 1
+      },
+      "lineNbr": 1050,
+      "author": {
+        "id": 12592
+      },
+      "writtenOn": "2016-10-27T12:31:57Z",
+      "side": 1,
+      "message": "What do we get from reducing the duration?",
+      "revId": "1b3f2e3a3fefc88f3c3769039aa5cc4bfacf2a8e",
+      "serverId": "1ec6b3db-b2c1-4fa4-84a2-4c7efe89ba71",
+      "unresolved": false
+    }
+  ]
+}
