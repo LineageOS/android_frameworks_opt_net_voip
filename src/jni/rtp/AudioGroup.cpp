@@ -576,9 +576,9 @@ AudioGroup::~AudioGroup()
 
 bool AudioGroup::set(int sampleRate, int sampleCount)
 {
-    mEventQueue = epoll_create(2);
+    mEventQueue = epoll_create1(EPOLL_CLOEXEC);
     if (mEventQueue == -1) {
-        ALOGE("epoll_create: %s", strerror(errno));
+        ALOGE("epoll_create1: %s", strerror(errno));
         return false;
     }
 
