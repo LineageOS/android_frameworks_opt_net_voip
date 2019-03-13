@@ -847,7 +847,7 @@ bool AudioGroup::DeviceThread::threadLoop()
                                     0,
                                     0,
                                     record->getSessionId(),
-                                    record->getInput());
+                                    AUDIO_IO_HANDLE_NONE); // record sessionId is sufficient.
             status_t status = aec->initCheck();
             if (status == NO_ERROR || status == ALREADY_EXISTS) {
                 aec->setEnabled(true);
