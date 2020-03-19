@@ -412,19 +412,28 @@ void AudioStream::decode(int tick)
         sockaddr_storage remote;
         socklen_t addrlen = sizeof(remote);
 
-        int length = recvfrom(mSocket, buffer, sizeof(buffer),
+        int bufferSize = sizeof(buffer);
+        int length = recvfrom(mSocket, buffer, bufferSize,
             MSG_TRUNC | MSG_DONTWAIT, (sockaddr *)&remote, &addrlen);
 
         // Do we need to check SSRC, sequence, and timestamp? They are not
         // reliable but at least they can be used to identify duplicates?
-        if (length < 12 || length > (int)sizeof(buffer) ||
+        if (length < 12 || length > bufferSize ||
             (ntohl(*(uint32_t *)buffer) & 0xC07F0000) != mCodecMagic) {
             ALOGV("stream[%d] malformed packet", mSocket);
             return;
         }
         int offset = 12 + ((buffer[0] & 0x0F) << 2);
+        if (offset+2 >= bufferSize) {
+            ALOGV("invalid buffer offset: %d", offset+2);
+            return;
+        }
         if ((buffer[0] & 0x10) != 0) {
             offset += 4 + (ntohs(*(uint16_t *)&buffer[offset + 2]) << 2);
+        }
+        if (offset >= bufferSize) {
+            ALOGV("invalid buffer offset: %d", offset);
+            return;
         }
         if ((buffer[0] & 0x20) != 0) {
             length -= buffer[length - 1];
